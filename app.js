@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cards = require('./routes/cards');
 const users = require('./routes/users');
 const {login, createUser} = require('./controllers/users');
+const auth = require('./middlewares/auth');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -17,8 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/signin', login);
 app.post('/signup', createUser);
-app.use('/', cards);
-app.use('/', users);
+app.use('/', auth, cards);
+app.use('/', auth, users);
 
 app.all('*', (req, res) => {
   return res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
