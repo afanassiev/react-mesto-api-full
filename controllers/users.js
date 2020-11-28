@@ -46,5 +46,19 @@ module.exports.login = (req, res) => {
     })
     .catch(err => {
       res.status(401).send({ message: err.message });
-    })
+    });
+};
+
+module.exports.getCurrentUser = (req, res) => {
+    User.findById(req.user._id)
+        .then(user => {
+            if (user) {
+                return res.status(200).send(user);
+            } else {
+                throw new Error('Пользователя с указанным ID не существует')
+            }
+        })
+        .catch(err => {
+            res.status(401).send({ message: err.message });
+        })
 }
