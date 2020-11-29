@@ -1,35 +1,31 @@
 const Card = require('../models/card');
+const AuthorizationErr = require('../errors/authorization-err');
+const ForbiddenErr = require('../errors/forbidden-err');
+const NotFoundErr = require('../errors/not-found-err');
 
-module.exports.cardsList = (req, res) => {
+module.exports.cardsList = (req, res, next) => {
   Card.find({})
     .then((cards) => {
       res.send(cards);
     })
-    .catch(() => res.status(500).send({ message: 'Ошибка на стороне сервера' }));
+    .catch(next);
 };
 
-module.exports.createCard = (req, res) => {
+module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.status(201).send(card))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return res.status(400).send({ message: 'Ошибка: переданы некорректные данные!' });
-      }
-      return res.status(500).send({ message: 'Ошибка на стороне сервера' });
-    });
+    .catch(() => next(new AuthorizationErr()));
 };
 
-module.exports.removeCard = (req, res) => {
+module.exports.removeCard = (req, res, next) => {
   Card.findByIdAndRemove(req.params.id)
-    .orFail(new Error('InvalidID'))
+    .orFail(new NotFoundErr('Не удалось найти карточку'))
     .then((card) => {
+      if (card.owner.toString() !== req.user._id) {
+          throw new ForbiddenErr('Ошибка авторизации');
+      }
       res.send({ data: card });
     })
-    .catch((err) => {
-      if (err.message === 'InvalidID') {
-        return res.status(404).send({ message: 'Такой карточки не существует' });
-      }
-      return res.status(500).send({ message: 'Ошибка на стороне сервера' });
-    });
+    .catch(next);
 };
