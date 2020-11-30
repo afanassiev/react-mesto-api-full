@@ -11,7 +11,7 @@
   "author": "Anton Afanasiev",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^7.9.0",
+    "eslint": "^7.14.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "nodemon": "^2.0.4"
@@ -19,7 +19,9 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "celebrate": "^13.0.4",
     "express": "^4.17.1",
+    "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.8",
     "validator": "^13.1.17"
