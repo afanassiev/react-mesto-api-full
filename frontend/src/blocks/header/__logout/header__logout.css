@@ -1,0 +1,11 @@
+.header__logout {
+  border: none;
+  background: none;
+  color: #A9A9A9;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.header__logout:hover {
+  cursor: pointer;
+}

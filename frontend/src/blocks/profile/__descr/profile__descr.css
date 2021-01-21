@@ -1,0 +1,9 @@
+.profile__descr {
+
+}
+
+@media screen and (max-width: 370px) {
+  .profile__descr {
+    font-size: 14px;
+  }
+}

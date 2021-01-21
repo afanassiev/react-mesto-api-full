@@ -1,0 +1,22 @@
+@import url(__text/footer__text.css);
+
+.footer {
+  /*margin: 66px auto 60px auto;*/
+  margin-top: 66px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 60px;
+  max-width: 882px;
+}
+
+@media screen and (max-width: 920px) {
+  .footer {
+    max-width: 600px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .footer {
+    max-width: 282px;
+  }
+}

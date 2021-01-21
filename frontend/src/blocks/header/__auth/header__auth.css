@@ -1,0 +1,17 @@
+.header__auth {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.header__auth:hover {
+  color: #A9A9A9;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 960px) {
+  .header__auth {
+    margin-right: 27px;
+  }
+}

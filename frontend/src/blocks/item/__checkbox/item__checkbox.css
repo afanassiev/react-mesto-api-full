@@ -1,0 +1,16 @@
+.item__checkbox {
+  width: 20.76px;
+  height: 18.13px;
+  background-image: url('../../../images/checkbox.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-indent: -1000px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.item__checkbox:hover {
+  opacity: 0.6;
+}

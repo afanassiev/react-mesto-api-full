@@ -1,0 +1,13 @@
+@import url(_email/auth__input_email.css);
+@import url(_password/auth__input_password.css);
+
+.auth__input {
+  width: 358px;
+  min-height: 27px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #CCCCCC;
+  text-overflow: ellipsis;
+  color: #FFFFFF;
+  background-color: #000000;
+}

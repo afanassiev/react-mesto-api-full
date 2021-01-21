@@ -1,0 +1,9 @@
+.item__image {
+    width: 282px;
+    height: 282px;
+    cursor: pointer;
+}
+
+.item__image:hover {
+    opacity: 0.8;
+}

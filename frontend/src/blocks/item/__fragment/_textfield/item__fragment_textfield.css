@@ -1,0 +1,10 @@
+.item__fragment_textfield {
+  background-color: #fff;
+  min-height: 79px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 21px;
+  padding-right: 21px;
+}

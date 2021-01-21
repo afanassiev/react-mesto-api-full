@@ -1,0 +1,15 @@
+@import url(__logo/header__logo.css);
+@import url(__line/header__line.css);
+@import url(__auth/header__auth.css);
+@import url(__container/header__container.css);
+@import url(__email/header__email.css);
+@import url(__user-panel/header__user-panel.css);
+@import url(__logout/header__logout.css);
+
+.header {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 45px;
+  max-width: 882px;
+  width: 100%;
+}

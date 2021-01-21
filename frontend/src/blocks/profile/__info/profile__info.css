@@ -1,0 +1,14 @@
+.profile__info {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+@media screen and (max-width: 540px) {
+  .profile__info {
+    padding-left: 10px;
+  }
+}
