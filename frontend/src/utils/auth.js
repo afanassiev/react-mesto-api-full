@@ -1,9 +1,9 @@
-import {apiAuthConfig} from "./constants";
+import {apiConfig} from "./constants";
 
 class Auth {
-  constructor(authConfig) {
-    this.url = authConfig.baseUrl
-    this.headers = authConfig.headers
+  constructor(apiConfig) {
+    this.url = apiConfig.baseUrl
+    this.headers = apiConfig.headers
   }
 
   _resultHandler(res) {
@@ -47,6 +47,6 @@ class Auth {
   }
 }
 
-const auth = new Auth(apiAuthConfig);
+const auth = new Auth(apiConfig);
 
 export default auth;

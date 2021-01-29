@@ -4,7 +4,6 @@ class Api {
   constructor(apiConfig) {
     this.url = apiConfig.baseUrl;
     this.headers = apiConfig.headers;
-    this.authorizedUserId = apiConfig.authorizedUserId;
   }
 
   _resultHandler(res) {
