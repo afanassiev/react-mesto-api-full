@@ -8,6 +8,7 @@ const users = require('./routes/users');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const NotFoundErr = require('./errors/not-found-err');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -22,29 +23,31 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 
 app.get('/crash-test', () => {
-    setTimeout(() => {
-        throw new Error('Сервер сейчас упадёт');
-    }, 0);
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
 });
 
 app.post('/signin', celebrate({
-    body: Joi.object().keys({
-        email: Joi.string().required().email(),
-        password: Joi.string().required().min(8).max(30)
-    })
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(8),
+  }),
 }), login);
 app.post('/signup', celebrate({
-    body: Joi.object().keys({
-        email: Joi.string().required().min(2).max(30),
-        name: Joi.string().required().min(2).max(30),
-        password: Joi.string().required().min(8).max(30),
-    }).unknown(true),
+  body: Joi.object().keys({
+    email: Joi.string().required().min(2).max(30),
+    name: Joi.string().min(2).max(30),
+    password: Joi.string().required().min(8),
+    avatar: Joi.string().pattern(/^(https?:\/\/)(www\.)?([\w\W\d]+)(\.)([a-z]{1,10})([\w\W\d]+)?$/),
+    about: Joi.string().min(2).max(30),
+  }).unknown(true),
 }), createUser);
 app.use('/', auth, cards);
 app.use('/', auth, users);
 
-app.all('*', (req, res) => {
-  return res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
+app.all('*', (req, res, next) => {
+  next(new NotFoundErr('Запрашиваемый ресурс не найден'));
 });
 
 app.use(errorLogger);
@@ -55,10 +58,10 @@ app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
 
   res
-      .status(statusCode)
-      .send({
-        message: statusCode === 500 ? 'Ошибка на стороне сервера' : message
-      });
+    .status(statusCode)
+    .send({
+      message: statusCode === 500 ? 'Ошибка на стороне сервера' : message,
+    });
   next();
 });
 
