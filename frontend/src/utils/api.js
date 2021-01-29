@@ -14,7 +14,7 @@ class Api {
   }
 
   getUserInfo() {
-    return fetch(`${this.url}users/me`,
+    return fetch(`${this.url}/users/me`,
       {
         method: 'GET',
         headers: this.headers
@@ -23,7 +23,7 @@ class Api {
   }
 
   setUserInfo(data) {
-    return fetch(`${this.url}users/me`,
+    return fetch(`${this.url}/users/me`,
       {
         method: 'PATCH',
         headers: this.headers,
@@ -36,7 +36,7 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this.url}cards`,
+    return fetch(`${this.url}/cards`,
       {
         method: 'GET',
         headers: this.headers
@@ -45,7 +45,7 @@ class Api {
   }
 
   addNewCard(item) {
-    return fetch(`${this.url}cards`,
+    return fetch(`${this.url}/cards`,
       {
         method: 'POST',
         headers: this.headers,
@@ -59,14 +59,14 @@ class Api {
 
   changeLikeCardStatus (cardId, isLiked) {
     if (isLiked) {
-      return fetch(`${this.url}cards/likes/${cardId}`, {
+      return fetch(`${this.url}/cards/likes/${cardId}`, {
             method: 'PUT',
             headers: this.headers
           })
             .then(this._resultHandler)
             .catch(this._errorHandler)
         } else {
-        return fetch(`${this.url}cards/likes/${cardId}`, {
+        return fetch(`${this.url}/cards/likes/${cardId}`, {
           method: 'DELETE',
           headers: this.headers
           })
@@ -75,7 +75,7 @@ class Api {
   }
 
   deleteCard(cardId) {
-    return fetch(`${this.url}cards/${cardId}`, {
+    return fetch(`${this.url}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this.headers
     })
@@ -83,7 +83,7 @@ class Api {
   }
 
   setUserAvatar(avatar) {
-    return fetch(`${this.url}users/me/avatar`, {
+    return fetch(`${this.url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
