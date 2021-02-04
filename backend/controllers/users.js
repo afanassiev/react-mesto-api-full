@@ -52,7 +52,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
-  User.findById(req.params.id !== 'me' ? req.params.id : req.user)
+  User.findById(req.user._id)
     .then((user) => {
       if (user) {
         return res.status(200).send(user);
