@@ -20,8 +20,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
-app.use('*', cors({
-  origin: 'https://mestoproject.students.nomoredomains.work',
+app.use(cors({
+  origin: true,
   credentials: true,
 }));
 
