@@ -211,7 +211,7 @@ function App() {
       <div className="page__content">
         <Header
           signOut={signOut}
-          loggedInUserEmail={loggedInUserEmail}
+          loggedInUser={loggedInUser}
         />
 
         <Switch>
