@@ -21,7 +21,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
 
 app.use(cors({
-  origin: 'http://mestoproject.students.nomoredomains.work',
+  origin: 'https://api.mestoproject.students.nomoredomains.work',
   credentials: true,
 }));
 
