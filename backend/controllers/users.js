@@ -46,7 +46,7 @@ module.exports.login = (req, res, next) => {
   User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
-      return res.send({ token });
+      res.status(200).send({ token });
     })
     .catch(() => next(new AuthorizationErr('Ошибка авторизации. Проверьте правильность введенных данных')));
 };
