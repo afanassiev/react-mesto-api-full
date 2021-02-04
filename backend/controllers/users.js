@@ -56,11 +56,11 @@ module.exports.login = (req, res, next) => {
 
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
-    .then((user) => {
-      if (user) {
-        return res.status(200).send(user);
-      }
-      throw new NotFoundErr('Пользователя с указанным ID не существует');
-    })
+    .then((user) => res.send({
+      data: {
+        email: user.email,
+        name: user.name,
+      },
+    }))
     .catch(next);
 };
