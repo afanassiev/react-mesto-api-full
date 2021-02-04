@@ -6,7 +6,7 @@ usersRouter.get('/users', usersList);
 
 usersRouter.get('/users/:id', celebrate({
   body: Joi.object().keys({
-    id: Joi.string().required().hex().length(24),
+    _id: Joi.string().required().hex().length(24),
   }),
 }), sendUser);
 
