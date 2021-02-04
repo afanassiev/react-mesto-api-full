@@ -30,8 +30,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [success, setSuccess] = useState(false);
-  // const [loggedInUser, setLoggedInUserEmail] = useState('');
-  const [loggedInUser, setLoggedInUser] = React.useState(null);
+  const [loggedInUserEmail, setLoggedInUserEmail] = useState('');
 
   useEffect(() => {
     tokenCheck();
@@ -160,11 +159,7 @@ function App() {
     if (jwt) {
       auth.getContent(jwt).then(res => {
         if (res) {
-          // setLoggedInUserEmail(res.data.email);
-          setLoggedInUser({
-            id: res.data._id,
-            email: res.data.email
-          });
+          setLoggedInUserEmail(res.data.email);
           setIsLoggedIn(true);
           history.push('/');
         }})
@@ -211,7 +206,7 @@ function App() {
       <div className="page__content">
         <Header
           signOut={signOut}
-          loggedInUser={loggedInUser}
+          loggedInUserEmail={loggedInUserEmail}
         />
 
         <Switch>
