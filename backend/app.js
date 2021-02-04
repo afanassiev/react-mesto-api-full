@@ -13,15 +13,15 @@ const NotFoundErr = require('./errors/not-found-err');
 
 const { PORT = 3000 } = process.env;
 const app = express();
+app.use(cors());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', '*');
-  res.setHeader('Access-Control-Allow-Headers', '*');
+  // res.setHeader('Access-Control-Allow-Methods', '*');
+  // res.setHeader('Access-Control-Allow-Headers', '*');
   next();
 });
 
-app.use(cors());
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
   useCreateIndex: true,
