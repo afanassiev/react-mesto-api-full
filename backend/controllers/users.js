@@ -55,7 +55,7 @@ module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.params.id !== 'me' ? req.params.id : req.user)
     .then((user) => {
       if (user) {
-        return res.status(200).send(user);
+        return res.status(200).send({data: user});
       }
       throw new NotFoundErr('Пользователя с указанным ID не существует');
     })
