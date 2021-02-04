@@ -13,7 +13,7 @@ cardsRouter.post('/cards', celebrate({
 
 cardsRouter.delete('/cards/:id', celebrate({
   params: Joi.object().keys({
-    id: Joi.string().required().hex().length(24),
+    _id: Joi.string().required().hex().length(24),
   }),
 }), removeCard);
 
