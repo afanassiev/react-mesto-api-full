@@ -48,7 +48,10 @@ module.exports.login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
       res.status(200).send({ token });
     })
-    .catch(() => next(new AuthorizationErr('Ошибка авторизации. Проверьте правильность введенных данных')));
+    .catch(() => {
+      throw new AuthorizationErr('Ошибка авторизации. Проверьте правильность введенных данных');
+    })
+    .catch(next);
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
