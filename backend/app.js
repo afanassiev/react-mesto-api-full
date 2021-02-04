@@ -20,7 +20,10 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
