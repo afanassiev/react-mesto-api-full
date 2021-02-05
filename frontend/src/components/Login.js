@@ -10,11 +10,10 @@ function Login({loginUser}) {
 
   function handleSubmit(evt) {
     evt.preventDefault()
-    if (email || password) {
-      loginUser(email, password)
-    } else {
-
+    if (!email || !password) {
+      return
     }
+    loginUser(email, password)
   }
 
   return (

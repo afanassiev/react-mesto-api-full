@@ -3,7 +3,11 @@ import {apiConfig} from "./constants";
 class Api {
   constructor(apiConfig) {
     this.url = apiConfig.baseUrl;
-    this.headers = apiConfig.headers;
+    this.headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('jwt')
+    };
   }
 
   _resultHandler(res) {
