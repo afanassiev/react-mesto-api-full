@@ -4,6 +4,7 @@ const User = require('../models/user');
 const AuthorizationErr = require('../errors/authorization-err');
 const NotFoundErr = require('../errors/not-found-err');
 const ConflictErr = require('../errors/conflict-err');
+const BadRequestErr = require('../errors/bad-request-err');
 
 module.exports.usersList = (req, res, next) => {
   User.find({})
@@ -30,7 +31,11 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
-    .then((user) => res.status(201).send(user))
+    .then((user) => {
+      const newUser = user;
+      newUser.password = '';
+      res.status(201).send(newUser);
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         throw new AuthorizationErr('Ошибка авторизации. Проверьте правильность введенных данных');
@@ -56,11 +61,23 @@ module.exports.login = (req, res, next) => {
 
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
-    .then((user) => res.send({
-      data: {
-        email: user.email,
-        name: user.name,
-      },
-    }))
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundErr('Пользователь с таким id не найден');
+      }
+      return res.send({
+        data: {
+          email: user.email,
+          name: user.name,
+          about: user.about,
+          avatar: user.avatar,
+        },
+      });
+    })
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        throw new BadRequestErr('Ошибка запроса');
+      }
+    })
     .catch(next);
 };

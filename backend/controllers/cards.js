@@ -19,13 +19,14 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.removeCard = (req, res, next) => {
-  Card.findByIdAndRemove(req.params.id)
+  Card.findById(req.params.id)
     .orFail(new NotFoundErr('Не удалось найти карточку'))
     .then((card) => {
       if (card.owner.toString() !== req.user._id) {
-        throw new ForbiddenErr('Ошибка авторизации');
+        throw new ForbiddenErr('Ошибка: можно удалять только свои карточки');
       }
-      res.send({ data: card });
+      card.remove()
+        .then((deletedCard) => res.send({ data: deletedCard }));
     })
     .catch(next);
 };
