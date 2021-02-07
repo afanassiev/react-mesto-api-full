@@ -16,17 +16,12 @@ module.exports.usersList = (req, res, next) => {
 
 module.exports.sendUser = (req, res, next) => {
   User.findById(req.params.id)
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundErr('Нет пользователя с таким id');
-      }
-      return res.send({ data: user });
-    })
+    .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'CastError') {
         throw new BadRequestErr('Ошибка запроса');
       }
-      return (next);
+      next(new NotFoundErr('Нет пользователя с таким id'));
     });
 };
 
