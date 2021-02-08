@@ -20,9 +20,11 @@ module.exports.sendUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         throw new BadRequestErr('Ошибка запроса');
+      } else if (err.statusCode === 404) {
+        throw new NotFoundErr('Нет пользователя с таким id');
       }
-      next(new NotFoundErr('Нет пользователя с таким id'));
-    });
+    })
+    .catch(next);
 };
 
 module.exports.createUser = (req, res, next) => {
